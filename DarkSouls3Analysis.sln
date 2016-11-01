@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkSouls3Analysis", "DarkSouls3Analysis\DarkSouls3Analysis.csproj", "{B2B1F5DA-1AA2-4C0D-8074-20FBAB5CF96C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkSouls3.Preprocessor", "DarkSouls3.Preprocessor\DarkSouls3.Preprocessor.csproj", "{DCB3E626-667D-44E4-92AC-014A5D11C03B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkSouls3Preprocessor", "TranslateFiles\DarkSouls3Preprocessor.csproj", "{DCB3E626-667D-44E4-92AC-014A5D11C03B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkSouls3.Structures", "DarkSouls3.Structures\DarkSouls3.Structures.csproj", "{F9DA4804-67BB-4AF6-B18A-EA3BA594032C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Structures", "Structures\Structures.csproj", "{F9DA4804-67BB-4AF6-B18A-EA3BA594032C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkSouls3.TextViewer", "DarkSouls3.TextViewer\DarkSouls3.TextViewer.csproj", "{C5E2C7E7-F281-485A-AF38-963DF1BD5F07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B2B1F5DA-1AA2-4C0D-8074-20FBAB5CF96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2B1F5DA-1AA2-4C0D-8074-20FBAB5CF96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2B1F5DA-1AA2-4C0D-8074-20FBAB5CF96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2B1F5DA-1AA2-4C0D-8074-20FBAB5CF96C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCB3E626-667D-44E4-92AC-014A5D11C03B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCB3E626-667D-44E4-92AC-014A5D11C03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB3E626-667D-44E4-92AC-014A5D11C03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{F9DA4804-67BB-4AF6-B18A-EA3BA594032C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9DA4804-67BB-4AF6-B18A-EA3BA594032C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9DA4804-67BB-4AF6-B18A-EA3BA594032C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E2C7E7-F281-485A-AF38-963DF1BD5F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E2C7E7-F281-485A-AF38-963DF1BD5F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E2C7E7-F281-485A-AF38-963DF1BD5F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E2C7E7-F281-485A-AF38-963DF1BD5F07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

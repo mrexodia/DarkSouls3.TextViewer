@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
-namespace Structures
+namespace DarkSouls3.Structures
 {
     [DataContract]
     public class GenericItem
@@ -21,6 +25,11 @@ namespace Structures
 
         [DataMember(Name = "knowledge", Order = 4)]
         public string Knowledge = "";
+
+        public override string ToString()
+        {
+            return Name.Length == 0 ? Id : Name;
+        }
     }
 
     [DataContract]
@@ -76,5 +85,35 @@ namespace Structures
     {
         [DataMember(Name = "languages")]
         public Dictionary<string, Language> Languages = new Dictionary<string, Language>();
+    }
+
+    public static class JSONHelper
+    {
+        public static string Serialize<T>(T obj)
+        {
+            var serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
+            {
+                UseSimpleDictionaryFormat = true
+            });
+            MemoryStream ms = new MemoryStream();
+            serializer.WriteObject(ms, obj);
+            string retVal = Encoding.UTF8.GetString(ms.ToArray());
+            ms.Dispose();
+            return retVal;
+        }
+
+        public static T Deserialize<T>(string json)
+        {
+            T obj = Activator.CreateInstance<T>();
+            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
+            var serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
+            {
+                UseSimpleDictionaryFormat = true
+            });
+            obj = (T)serializer.ReadObject(ms);
+            ms.Close();
+            ms.Dispose();
+            return obj;
+        }
     }
 }

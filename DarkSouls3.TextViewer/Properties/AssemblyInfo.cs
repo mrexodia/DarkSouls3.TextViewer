@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DarkSouls3Analysis")]
+[assembly: AssemblyTitle("DarkSouls3Viewer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DarkSouls3Analysis")]
+[assembly: AssemblyProduct("DarkSouls3Viewer")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3ae3fe19-aa37-43e0-85a1-7e926e8128e8")]
+[assembly: Guid("ac9a26c0-85f1-4a2c-892e-b08748a8b682")]
 
 // Version information for an assembly consists of the following four values:
 //

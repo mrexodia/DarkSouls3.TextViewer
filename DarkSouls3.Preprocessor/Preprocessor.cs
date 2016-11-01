@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using Structures;
+using DarkSouls3.Structures;
 
-namespace TranslateFiles
+namespace DarkSouls3.Preprocessor
 {
-    static class TranslateFiles
+    static class Preprocessor
     {
         static void RenameFiles()
         {
@@ -48,36 +48,6 @@ namespace TranslateFiles
                 dict[split[0]] = trim;
             }
             return dict;
-        }
-
-        public static class JSONHelper
-        {
-            public static string Serialize<T>(T obj)
-            {
-                var serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
-                {
-                    UseSimpleDictionaryFormat = true
-                });
-                MemoryStream ms = new MemoryStream();
-                serializer.WriteObject(ms, obj);
-                string retVal = Encoding.UTF8.GetString(ms.ToArray());
-                ms.Dispose();
-                return retVal;
-            }
-
-            public static T Deserialize<T>(string json)
-            {
-                T obj = Activator.CreateInstance<T>();
-                MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
-                var serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
-                {
-                    UseSimpleDictionaryFormat = true
-                });
-                obj = (T)serializer.ReadObject(ms);
-                ms.Close();
-                ms.Dispose();
-                return obj;
-            }
         }
 
         static Dictionary<string, Container> ParseContainers(IEnumerable<string> files)
