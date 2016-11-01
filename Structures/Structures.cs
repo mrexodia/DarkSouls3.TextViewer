@@ -7,20 +7,20 @@ namespace Structures
     [DataContract]
     public class GenericItem
     {
-        [DataMember(Name = "id")]
+        [DataMember(Name = "id", Order = 0)]
         public string Id;
 
-        [DataMember(Name = "name")]
+        [DataMember(Name = "dlc", Order = 1)]
+        public int Dlc = 0;
+
+        [DataMember(Name = "name", Order = 2)]
         public string Name = "";
 
-        [DataMember(Name = "description")]
+        [DataMember(Name = "description", Order = 3)]
         public string Description = "";
 
-        [DataMember(Name = "knowledge")]
+        [DataMember(Name = "knowledge", Order = 4)]
         public string Knowledge = "";
-
-        [DataMember(Name = "dlc")]
-        public int Dlc = 0;
     }
 
     [DataContract]
