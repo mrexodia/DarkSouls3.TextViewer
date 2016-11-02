@@ -37,12 +37,12 @@
             this.listBoxItems = new System.Windows.Forms.ListBox();
             this.webBrowserItem = new System.Windows.Forms.WebBrowser();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
+            this.splitContainerConversations = new System.Windows.Forms.SplitContainer();
+            this.listBoxConversations = new System.Windows.Forms.ListBox();
+            this.webBrowserConversation = new System.Windows.Forms.WebBrowser();
             this.tabPageContainers = new System.Windows.Forms.TabPage();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
-            this.splitContainerConversations = new System.Windows.Forms.SplitContainer();
-            this.listBoxConversations = new System.Windows.Forms.ListBox();
-            this.webBrowserConversations = new System.Windows.Forms.WebBrowser();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -77,7 +77,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(12, 41);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(902, 457);
+            this.tabControlMain.Size = new System.Drawing.Size(902, 420);
             this.tabControlMain.TabIndex = 1;
             // 
             // tabPageItems
@@ -86,7 +86,7 @@
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItems.Size = new System.Drawing.Size(894, 431);
+            this.tabPageItems.Size = new System.Drawing.Size(894, 394);
             this.tabPageItems.TabIndex = 0;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
@@ -107,8 +107,8 @@
             // splitContainerItems.Panel2
             // 
             this.splitContainerItems.Panel2.Controls.Add(this.webBrowserItem);
-            this.splitContainerItems.Size = new System.Drawing.Size(894, 431);
-            this.splitContainerItems.SplitterDistance = 298;
+            this.splitContainerItems.Size = new System.Drawing.Size(894, 394);
+            this.splitContainerItems.SplitterDistance = 250;
             this.splitContainerItems.TabIndex = 0;
             // 
             // checkedListBoxItems
@@ -123,9 +123,9 @@
             "Item",
             "Magic",
             "Weapon"});
-            this.checkedListBoxItems.Location = new System.Drawing.Point(7, 7);
+            this.checkedListBoxItems.Location = new System.Drawing.Point(6, 6);
             this.checkedListBoxItems.Name = "checkedListBoxItems";
-            this.checkedListBoxItems.Size = new System.Drawing.Size(288, 79);
+            this.checkedListBoxItems.Size = new System.Drawing.Size(241, 79);
             this.checkedListBoxItems.TabIndex = 2;
             // 
             // listBoxItems
@@ -135,9 +135,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxItems.FormattingEnabled = true;
             this.listBoxItems.HorizontalScrollbar = true;
-            this.listBoxItems.Location = new System.Drawing.Point(7, 87);
+            this.listBoxItems.Location = new System.Drawing.Point(6, 85);
             this.listBoxItems.Name = "listBoxItems";
-            this.listBoxItems.Size = new System.Drawing.Size(288, 342);
+            this.listBoxItems.Size = new System.Drawing.Size(241, 303);
             this.listBoxItems.TabIndex = 1;
             // 
             // webBrowserItem
@@ -145,10 +145,10 @@
             this.webBrowserItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserItem.Location = new System.Drawing.Point(-1, 0);
+            this.webBrowserItem.Location = new System.Drawing.Point(3, 0);
             this.webBrowserItem.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserItem.Name = "webBrowserItem";
-            this.webBrowserItem.Size = new System.Drawing.Size(593, 431);
+            this.webBrowserItem.Size = new System.Drawing.Size(637, 394);
             this.webBrowserItem.TabIndex = 0;
             // 
             // tabPageConversations
@@ -157,10 +157,51 @@
             this.tabPageConversations.Location = new System.Drawing.Point(4, 22);
             this.tabPageConversations.Name = "tabPageConversations";
             this.tabPageConversations.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConversations.Size = new System.Drawing.Size(894, 431);
+            this.tabPageConversations.Size = new System.Drawing.Size(894, 394);
             this.tabPageConversations.TabIndex = 1;
             this.tabPageConversations.Text = "Conversations";
             this.tabPageConversations.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerConversations
+            // 
+            this.splitContainerConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerConversations.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerConversations.Name = "splitContainerConversations";
+            // 
+            // splitContainerConversations.Panel1
+            // 
+            this.splitContainerConversations.Panel1.Controls.Add(this.listBoxConversations);
+            // 
+            // splitContainerConversations.Panel2
+            // 
+            this.splitContainerConversations.Panel2.Controls.Add(this.webBrowserConversation);
+            this.splitContainerConversations.Size = new System.Drawing.Size(894, 394);
+            this.splitContainerConversations.SplitterDistance = 250;
+            this.splitContainerConversations.TabIndex = 0;
+            // 
+            // listBoxConversations
+            // 
+            this.listBoxConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxConversations.FormattingEnabled = true;
+            this.listBoxConversations.Location = new System.Drawing.Point(6, 6);
+            this.listBoxConversations.Name = "listBoxConversations";
+            this.listBoxConversations.Size = new System.Drawing.Size(241, 381);
+            this.listBoxConversations.TabIndex = 0;
+            // 
+            // webBrowserConversation
+            // 
+            this.webBrowserConversation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserConversation.Location = new System.Drawing.Point(3, 0);
+            this.webBrowserConversation.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserConversation.Name = "webBrowserConversation";
+            this.webBrowserConversation.Size = new System.Drawing.Size(637, 394);
+            this.webBrowserConversation.TabIndex = 0;
             // 
             // tabPageContainers
             // 
@@ -189,52 +230,11 @@
             this.labelLanguage.TabIndex = 3;
             this.labelLanguage.Text = "Language:";
             // 
-            // splitContainerConversations
-            // 
-            this.splitContainerConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerConversations.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerConversations.Name = "splitContainerConversations";
-            // 
-            // splitContainerConversations.Panel1
-            // 
-            this.splitContainerConversations.Panel1.Controls.Add(this.listBoxConversations);
-            // 
-            // splitContainerConversations.Panel2
-            // 
-            this.splitContainerConversations.Panel2.Controls.Add(this.webBrowserConversations);
-            this.splitContainerConversations.Size = new System.Drawing.Size(894, 431);
-            this.splitContainerConversations.SplitterDistance = 180;
-            this.splitContainerConversations.TabIndex = 0;
-            // 
-            // listBoxConversations
-            // 
-            this.listBoxConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxConversations.FormattingEnabled = true;
-            this.listBoxConversations.Location = new System.Drawing.Point(0, 0);
-            this.listBoxConversations.Name = "listBoxConversations";
-            this.listBoxConversations.Size = new System.Drawing.Size(177, 433);
-            this.listBoxConversations.TabIndex = 0;
-            // 
-            // webBrowserConversations
-            // 
-            this.webBrowserConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserConversations.Location = new System.Drawing.Point(3, 0);
-            this.webBrowserConversations.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowserConversations.Name = "webBrowserConversations";
-            this.webBrowserConversations.Size = new System.Drawing.Size(707, 431);
-            this.webBrowserConversations.TabIndex = 0;
-            // 
             // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(926, 510);
+            this.ClientSize = new System.Drawing.Size(926, 473);
             this.Controls.Add(this.labelLanguage);
             this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.tabControlMain);
@@ -274,7 +274,7 @@
         private System.Windows.Forms.Label labelLanguage;
         private System.Windows.Forms.SplitContainer splitContainerConversations;
         private System.Windows.Forms.ListBox listBoxConversations;
-        private System.Windows.Forms.WebBrowser webBrowserConversations;
+        private System.Windows.Forms.WebBrowser webBrowserConversation;
     }
 }
 

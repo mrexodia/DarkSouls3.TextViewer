@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DarkSouls3.Structures;
@@ -24,14 +21,41 @@ namespace DarkSouls3.TextViewer
             comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;
             checkedListBoxItems.SelectedIndexChanged += checkedListBoxItems_SelectedIndexChanged;
             listBoxItems.SelectedIndexChanged += listBoxItems_SelectedIndexChanged;
+            listBoxConversations.SelectedIndexChanged += listBoxConversations_SelectedIndexChanged;
             LoadMatisseProFont();
+            for (var i = 0; i < checkedListBoxItems.Items.Count; i++)
+                checkedListBoxItems.SetItemChecked(i, true);
 
             loadData("ds3.json");
+            this.Load += DarkSouls3TextViewer_Load;
         }
 
-        private void LoadFontFamily(string fileName)
+        void listBoxConversations_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            var item = (Conversation)listBoxConversations.SelectedItem;
+            var template = @"
+<head>
+  <style>
+    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+  </style>
+</head>
+<body>
+  <h1>{0}</h1>
+  <p>{1}<br>
+    <sub>ID: {2}, DLC: {3}</sub>
+  </p>
+</body>
+";
+            webBrowserConversation.DocumentText = string.Format(template,
+                item,
+                EscapeHtml(item.Text),
+                item.Id,
+                item.Dlc);
+        }
+
+        void DarkSouls3TextViewer_Load(object sender, EventArgs e)
+        {
+            this.listBoxConversations.Font = new Font("FOT-Matisse ProN M", 8.25f);
         }
 
         private void LoadMatisseProFont()

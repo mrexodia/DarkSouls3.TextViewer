@@ -56,7 +56,17 @@ namespace DarkSouls3.Structures
 
         public override string ToString()
         {
-            return Id;
+            var split = Text.Split('\n')[0].Split(' ');
+            var quote = new StringBuilder();
+            quote.Append(split[0]);
+            for (var i = 1; i < split.Length && quote.Length < 15; i++)
+            {
+                quote.Append(' ');
+                quote.Append(split[i]);
+            }
+            if (quote.Length < Text.Length && !quote.ToString().EndsWith("..."))
+                quote.Append("...");
+            return string.Format("{0} \"{1}\"", Id, quote.ToString());
         }
     }
 
