@@ -254,25 +254,24 @@ namespace DarkSouls3.TextViewer
             return _culture.CompareInfo.IndexOf(text, filter, CompareOptions.IgnoreCase) >= 0;
         }
 
-        bool MatchesAndFilter(string text, string[] andSplit)
+        bool MatchesFilter(string text, string filter)
         {
-            foreach (var andf in andSplit)
-                if (!MatchesNotFilter(text, andf))
-                    return false;
-            return true;
-        }
-
-        bool MatchesOrFilter(string text, string[] orSplit)
-        {
-            foreach (var orf in orSplit)
-                if (MatchesAndFilter(text, orf.Split('&')))
-                    return true;
-            return false;
+            var orIndex = filter.IndexOf('|');
+            var andIndex = filter.IndexOf('&');
+            if (orIndex < 0 && andIndex < 0)
+                return MatchesNotFilter(text, filter);
+            if (orIndex < andIndex || andIndex < 0)
+                return MatchesFilter(text, filter.Substring(0, orIndex)) ||
+                       MatchesFilter(text, filter.Substring(orIndex + 1));
+            if (andIndex < orIndex || orIndex < 0)
+                return MatchesFilter(text, filter.Substring(0, andIndex)) &&
+                       MatchesFilter(text, filter.Substring(andIndex + 1));
+            throw new ArgumentException();
         }
 
         bool MatchesFilter(string text)
         {
-            return MatchesOrFilter(text, _filter.Split('|'));
+            return _filter.Length == 0 || MatchesFilter(text, _filter);
         }
 
         bool MatchesFilter(GenericItem item, string parent = "")
@@ -324,6 +323,15 @@ namespace DarkSouls3.TextViewer
         private void buttonApply_Click(object sender, EventArgs e)
         {
             _filter = textBoxFilter.Text;
+            if (_filter.StartsWith("&") || _filter.StartsWith("|") ||
+                _filter.EndsWith("&") || _filter.EndsWith("|") || _filter.EndsWith("~") ||
+                _filter.Contains("&&") || _filter.Contains("||") || _filter.Contains("~~") ||
+                _filter.Contains("~|") || _filter.Contains("~&") ||
+                _filter.Contains("&|") || _filter.Contains("|&"))
+            {
+                MessageBox.Show("Invalid filter!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             refreshLists();
         }
 
@@ -341,8 +349,8 @@ multiple filters with operators & (AND) | (OR) ~ (NOT).
 - DLC version can be found with 'dlcN'
 - Item type can be found with '{type}'
 
-Operator precedence:
-~ & |
+Operators are evaluated in order or appearance.
+a|b&c|d = a|(b&(c|d))
 
 Examples
 Filter: aldrich|deep
@@ -352,7 +360,7 @@ Filter: god&swamp
 Effect: Everything containing 'god' and 'swamp'
 
 Filter: aldrich&deep|children
-Effect: With braces: (aldrich&deep)|children
+Effect: With braces: aldrich&(deep|children)
 
 Filter: {1200}
 Effect: Matches text with ID 1200
