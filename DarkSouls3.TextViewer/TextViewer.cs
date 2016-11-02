@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace DarkSouls3.TextViewer
     {
         private DarkSouls3Text _ds3;
         private string _lang;
+        private string _filter = "";
+        private CultureInfo _culture;
 
         public DarkSouls3TextViewer()
         {
@@ -25,6 +28,7 @@ namespace DarkSouls3.TextViewer
             listBoxConversations.SelectedIndexChanged += listBoxConversations_SelectedIndexChanged;
             listBoxContainers.SelectedIndexChanged += listBoxContainers_SelectedIndexChanged;
             listBoxContainerContent.SelectedIndexChanged += listBoxContainerContent_SelectedIndexChanged;
+            AcceptButton = buttonApply;
             LoadMatisseProFont();
 
             for (var i = 0; i < checkedListBoxItems.Items.Count; i++)
@@ -33,146 +37,53 @@ namespace DarkSouls3.TextViewer
             loadData("ds3.json");
         }
 
-        void listBoxContainerContent_SelectedIndexChanged(object sender, EventArgs e)
+        void DarkSouls3TextViewer_Load(object sender, EventArgs e)
         {
-            var item = (ContainerContent)listBoxContainerContent.SelectedItem;
-            var template = @"
-<head>
-  <style>
-    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
-  </style>
-</head>
-<body>
-  <h1>{0}</h1>
-  <p>{1}</p>
-</body>";
-            webBrowserContainer.DocumentText = string.Format(template,
-                item.Id,
-                EscapeHtml(item.Text));
+            listBoxConversations.Font = new Font("FOT-Matisse ProN M", 8.25f);
         }
 
-        public class ContainerContent
+        CultureInfo ToCulture(string dsLang)
         {
-            public string Id;
-            public string Text;
-
-            public ContainerContent(string id, string text)
+            if (dsLang.Length == 5)
             {
-                Id = id;
-                Text = text;
-            }
-
-            public override string ToString()
-            {
-                var split = Text.Split('\n')[0].Split(' ');
-                var quote = new StringBuilder();
-                quote.Append(split[0]);
-                for (var i = 1; i < split.Length && quote.Length < 20; i++)
+                try
                 {
-                    quote.Append(' ');
-                    quote.Append(split[i]);
+                    return CultureInfo.GetCultureInfo(dsLang.Substring(0, 2) + "-" + dsLang.Substring(3, 2));
                 }
-                if (quote.Length < Text.Length && !quote.ToString().EndsWith("..."))
-                    quote.Append("...");
-                return string.Format("{0} \"{1}\"", Id, quote);
+                catch
+                {
+                    return CultureInfo.CurrentCulture;
+                }
             }
+            return CultureInfo.CurrentCulture;
+        }
+
+        void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _lang = comboBoxLanguage.SelectedItem.ToString();
+            _culture = ToCulture(_lang);
+            refreshLists();
+        }
+
+        void checkedListBoxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateItemList();
         }
 
         void listBoxContainers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var container = (Container) listBoxContainers.SelectedItem;
+            var container = (Container)listBoxContainers.SelectedItem;
             var data = new List<ContainerContent>();
             listBoxContainerContent.DataSource =
-                container.Content.Select(it => new ContainerContent(it.Key, it.Value)).ToArray();
-        }
-
-        void listBoxConversations_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var item = (Conversation)listBoxConversations.SelectedItem;
-            var template = @"
-<head>
-  <style>
-    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
-    .sub {{ font-size: 75% }}
-  </style>
-</head>
-<body>
-  <h1>{0}</h1>
-  <p>{1}</p>
-  <p class='sub'>DLC: {2}<p>
-</body>";
-            webBrowserConversation.DocumentText = string.Format(template,
-                item.Id,
-                EscapeHtml(item.Text),
-                item.Dlc);
-        }
-
-        void DarkSouls3TextViewer_Load(object sender, EventArgs e)
-        {
-            listBoxConversations.Font = new Font("FOT-Matisse ProN M", 8.25f);
+                container.Content.Where(MatchesFilter)
+                    .Select(it => new ContainerContent(it.Key, it.Value))
+                    .ToArray();
         }
 
         private void LoadMatisseProFont()
         {
             var myFonts = new PrivateFontCollection();
             myFonts.AddFontFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf"));
-        }
-
-        string EscapeHtml(string s)
-        {
-            return s.Replace("&", "&amp;")
-                .Replace("<", "&lt;")
-                .Replace(">", "&gt;")
-                .Replace("\"", "&quot;")
-                .Replace("'", "	&apos;")
-                .Replace("\n", "<br>");
-        }
-
-        public class ViewerItem
-        {
-            public string Parent;
-            public GenericItem Item;
-
-            public ViewerItem(string parent, GenericItem item)
-            {
-                Parent = parent;
-                Item = item;
-            }
-
-            public override string ToString()
-            {
-                return Item.ToString();
-            }
-        }
-
-        void listBoxItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var item = (ViewerItem)listBoxItems.SelectedItem;
-            var template = @"
-<head>
-  <style>
-    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
-    .sub {{ font-size: 75% }}
-  </style>
-</head>
-<body>
-  <h1>{0}</h1>
-  <h2>{1}</h2>
-  <p>{2}</p>
-  <p class='sub'>ID: {3}, DLC: {4}, Parent: {5}</p>
-</body>";
-            webBrowserItem.DocumentText = string.Format(template,
-                item,
-                EscapeHtml(item.Item.Description),
-                EscapeHtml(item.Item.Knowledge),
-                item.Item.Id,
-                item.Item.Dlc,
-                item.Parent);
-        }
-
-        void checkedListBoxItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateItemList();
         }
 
         void refreshLists()
@@ -182,14 +93,9 @@ namespace DarkSouls3.TextViewer
             updateContainerList();
         }
 
-        void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _lang = comboBoxLanguage.SelectedItem.ToString();
-            refreshLists();
-        }
-
         void updateItemList()
         {
+            webBrowserItem.DocumentText = "";
             var items = new List<ViewerItem>();
             var lang = _ds3.Languages[_lang];
             foreach (var item in checkedListBoxItems.CheckedItems)
@@ -215,19 +121,95 @@ namespace DarkSouls3.TextViewer
                         throw new NotImplementedException();
                 }
             }
-            listBoxItems.DataSource = items.OrderBy(item => item.Item.Name).ToArray();
+            listBoxItems.DataSource = items.Where(MatchesFilter).OrderBy(item => item.Item.Name).ToArray();
         }
 
         void updateConversationList()
         {
+            webBrowserConversation.DocumentText = "";
             var lang = _ds3.Languages[_lang];
-            listBoxConversations.DataSource = lang.Conversations.Values.ToArray();
+            listBoxConversations.DataSource = lang.Conversations.Values.Where(MatchesFilter).ToArray();
         }
 
         void updateContainerList()
         {
+            webBrowserContainer.DocumentText = "";
             var lang = _ds3.Languages[_lang];
-            listBoxContainers.DataSource = lang.Containers.Values.ToArray();
+            listBoxContainerContent.DataSource = new object[0];
+            listBoxContainers.DataSource = lang.Containers.Values.Where(MatchesFilter).ToArray();
+        }
+
+        string EscapeHtml(string s)
+        {
+            return s.Replace("&", "&amp;")
+                .Replace("<", "&lt;")
+                .Replace(">", "&gt;")
+                .Replace("\"", "&quot;")
+                .Replace("\n", "<br>");
+        }
+
+        void listBoxContainerContent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (ContainerContent)listBoxContainerContent.SelectedItem;
+            var template = @"
+<head>
+  <style>
+    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+  </style>
+</head>
+<body>
+  <h1>{0}</h1>
+  <p>{1}</p>
+</body>";
+            webBrowserContainer.DocumentText = string.Format(template,
+                item.Id,
+                EscapeHtml(item.Text));
+        }
+
+        void listBoxConversations_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (Conversation)listBoxConversations.SelectedItem;
+            var template = @"
+<head>
+  <style>
+    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+    .sub {{ font-size: 65% }}
+  </style>
+</head>
+<body>
+  <h1>{0}</h1>
+  <p>{1}</p>
+  <p class='sub'>{{{0}}} dlc{2}<p>
+</body>";
+            webBrowserConversation.DocumentText = string.Format(template,
+                item.Id,
+                EscapeHtml(item.Text),
+                item.Dlc);
+        }
+
+        void listBoxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (ViewerItem)listBoxItems.SelectedItem;
+            var template = @"
+<head>
+  <style>
+    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+    .sub {{ font-size: 65% }}
+  </style>
+</head>
+<body>
+  <h1>{0}</h1>
+  <h2>{1}</h2>
+  <p>{2}</p>
+  <p class='sub'>{{{3}}} {{{4}}} dlc{5}</p>
+</body>";
+            webBrowserItem.DocumentText = string.Format(template,
+                item,
+                EscapeHtml(item.Item.Description),
+                EscapeHtml(item.Item.Knowledge),
+                item.Parent,
+                item.Item.Id,
+                item.Item.Dlc);
         }
 
         private bool loadData(string filename)
@@ -263,6 +245,130 @@ namespace DarkSouls3.TextViewer
                 MessageBox.Show("Data loaded!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Failed to load data...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        bool MatchesNotFilter(string text, string filter)
+        {
+            if (filter.StartsWith("~"))
+                return _culture.CompareInfo.IndexOf(text, filter.Substring(1), CompareOptions.IgnoreCase) < 0;
+            return _culture.CompareInfo.IndexOf(text, filter, CompareOptions.IgnoreCase) >= 0;
+        }
+
+        bool MatchesOrFilter(string text, string[] orSplit)
+        {
+            foreach (var orf in orSplit)
+                if (MatchesNotFilter(text, orf))
+                    return true;
+            return false;
+        }
+
+        bool MatchesAndFilter(string text, string[] andSplit)
+        {
+            foreach (var andf in andSplit)
+                if (!MatchesOrFilter(text, andf.Split('|')))
+                    return false;
+            return true;
+        }
+
+        bool MatchesFilter(string text)
+        {
+            return MatchesAndFilter(text, _filter.Split('&'));
+        }
+
+        bool MatchesFilter(GenericItem item, string parent = "")
+        {
+            var builder = new StringBuilder();
+            if (parent.Length > 0)
+                builder.AppendFormat("{{{0}}}", parent);
+            builder.AppendFormat("{{{0}}}", item.Id);
+            builder.AppendFormat("dlc{0}", item.Dlc);
+            builder.AppendLine();
+            builder.Append(item.Name.Replace("\n", ""));
+            builder.Append(item.Description.Replace("\n", ""));
+            builder.Append(item.Knowledge.Replace("\n", ""));
+            return MatchesFilter(builder.ToString());
+        }
+
+        bool MatchesFilter(ViewerItem item)
+        {
+            return MatchesFilter(item.Item, item.Parent);
+        }
+
+        bool MatchesFilter(Conversation conversation)
+        {
+            var builder = new StringBuilder();
+            builder.AppendFormat("{{{0}}}", conversation.Id);
+            builder.AppendFormat("dlc{0}", conversation.Dlc);
+            builder.AppendLine();
+            builder.Append(conversation.Text.Replace("\n", ""));
+            return MatchesFilter(builder.ToString());
+        }
+
+        bool MatchesFilter(KeyValuePair<string, string> it)
+        {
+            var builder = new StringBuilder();
+            builder.AppendFormat("{{{0}}}", it.Key);
+            builder.AppendLine();
+            builder.Append(it.Value.Replace("\n", ""));
+            return MatchesFilter(builder.ToString());
+        }
+
+        bool MatchesFilter(Container container)
+        {
+            foreach (var c in container.Content)
+                if (MatchesFilter(c))
+                    return true;
+            return false;
+        }
+
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            _filter = textBoxFilter.Text;
+            refreshLists();
+        }
+    }
+
+    public class ContainerContent
+    {
+        public string Id;
+        public string Text;
+
+        public ContainerContent(string id, string text)
+        {
+            Id = id;
+            Text = text;
+        }
+
+        public override string ToString()
+        {
+            var split = Text.Split('\n')[0].Split(' ');
+            var quote = new StringBuilder();
+            quote.Append(split[0]);
+            for (var i = 1; i < split.Length && quote.Length < 20; i++)
+            {
+                quote.Append(' ');
+                quote.Append(split[i]);
+            }
+            if (quote.Length < Text.Length && !quote.ToString().EndsWith("..."))
+                quote.Append("...");
+            return string.Format("{0} \"{1}\"", Id, quote);
+        }
+    }
+
+    public class ViewerItem
+    {
+        public string Parent;
+        public GenericItem Item;
+
+        public ViewerItem(string parent, GenericItem item)
+        {
+            Parent = parent;
+            Item = item;
+        }
+
+        public override string ToString()
+        {
+            return Item.ToString();
         }
     }
 }

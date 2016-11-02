@@ -41,13 +41,16 @@
             this.listBoxConversations = new System.Windows.Forms.ListBox();
             this.webBrowserConversation = new System.Windows.Forms.WebBrowser();
             this.tabPageContainers = new System.Windows.Forms.TabPage();
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
-            this.labelLanguage = new System.Windows.Forms.Label();
             this.splitContainerContainers = new System.Windows.Forms.SplitContainer();
             this.splitContainerContainerLists = new System.Windows.Forms.SplitContainer();
             this.listBoxContainers = new System.Windows.Forms.ListBox();
             this.listBoxContainerContent = new System.Windows.Forms.ListBox();
             this.webBrowserContainer = new System.Windows.Forms.WebBrowser();
+            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.labelLanguage = new System.Windows.Forms.Label();
+            this.textBoxFilter = new System.Windows.Forms.TextBox();
+            this.labelFilter = new System.Windows.Forms.Label();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -229,23 +232,6 @@
             this.tabPageContainers.Text = "Containers";
             this.tabPageContainers.UseVisualStyleBackColor = true;
             // 
-            // comboBoxLanguage
-            // 
-            this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(157, 14);
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.comboBoxLanguage.Size = new System.Drawing.Size(58, 21);
-            this.comboBoxLanguage.TabIndex = 2;
-            // 
-            // labelLanguage
-            // 
-            this.labelLanguage.AutoSize = true;
-            this.labelLanguage.Location = new System.Drawing.Point(93, 17);
-            this.labelLanguage.Name = "labelLanguage";
-            this.labelLanguage.Size = new System.Drawing.Size(58, 13);
-            this.labelLanguage.TabIndex = 3;
-            this.labelLanguage.Text = "Language:";
-            // 
             // splitContainerContainers
             // 
             this.splitContainerContainers.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -312,11 +298,57 @@
             this.webBrowserContainer.Size = new System.Drawing.Size(468, 388);
             this.webBrowserContainer.TabIndex = 0;
             // 
+            // comboBoxLanguage
+            // 
+            this.comboBoxLanguage.FormattingEnabled = true;
+            this.comboBoxLanguage.Location = new System.Drawing.Point(157, 14);
+            this.comboBoxLanguage.Name = "comboBoxLanguage";
+            this.comboBoxLanguage.Size = new System.Drawing.Size(58, 21);
+            this.comboBoxLanguage.TabIndex = 2;
+            // 
+            // labelLanguage
+            // 
+            this.labelLanguage.AutoSize = true;
+            this.labelLanguage.Location = new System.Drawing.Point(93, 17);
+            this.labelLanguage.Name = "labelLanguage";
+            this.labelLanguage.Size = new System.Drawing.Size(58, 13);
+            this.labelLanguage.TabIndex = 3;
+            this.labelLanguage.Text = "Language:";
+            // 
+            // textBoxFilter
+            // 
+            this.textBoxFilter.Location = new System.Drawing.Point(259, 14);
+            this.textBoxFilter.Name = "textBoxFilter";
+            this.textBoxFilter.Size = new System.Drawing.Size(272, 20);
+            this.textBoxFilter.TabIndex = 4;
+            // 
+            // labelFilter
+            // 
+            this.labelFilter.AutoSize = true;
+            this.labelFilter.Location = new System.Drawing.Point(221, 17);
+            this.labelFilter.Name = "labelFilter";
+            this.labelFilter.Size = new System.Drawing.Size(32, 13);
+            this.labelFilter.TabIndex = 5;
+            this.labelFilter.Text = "Filter:";
+            // 
+            // buttonApply
+            // 
+            this.buttonApply.Location = new System.Drawing.Point(537, 12);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonApply.TabIndex = 6;
+            this.buttonApply.Text = "Apply";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
             // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 473);
+            this.Controls.Add(this.buttonApply);
+            this.Controls.Add(this.labelFilter);
+            this.Controls.Add(this.textBoxFilter);
             this.Controls.Add(this.labelLanguage);
             this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.tabControlMain);
@@ -371,6 +403,9 @@
         private System.Windows.Forms.ListBox listBoxContainers;
         private System.Windows.Forms.ListBox listBoxContainerContent;
         private System.Windows.Forms.WebBrowser webBrowserContainer;
+        private System.Windows.Forms.TextBox textBoxFilter;
+        private System.Windows.Forms.Label labelFilter;
+        private System.Windows.Forms.Button buttonApply;
     }
 }
 
