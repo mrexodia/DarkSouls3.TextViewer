@@ -16,7 +16,7 @@ namespace DarkSouls3.TextViewer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DarkSouls3Viewer());
+            Application.Run(new DarkSouls3TextViewer());
         }
     }
 }

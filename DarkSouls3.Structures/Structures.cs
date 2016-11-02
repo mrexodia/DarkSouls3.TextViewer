@@ -53,6 +53,11 @@ namespace DarkSouls3.Structures
 
         [DataMember(Name = "dlc")]
         public int Dlc = 0;
+
+        public override string ToString()
+        {
+            return Id;
+        }
     }
 
     [DataContract]

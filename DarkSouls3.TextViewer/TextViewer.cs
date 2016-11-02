@@ -13,31 +13,31 @@ using DarkSouls3.Structures;
 
 namespace DarkSouls3.TextViewer
 {
-    public partial class DarkSouls3Viewer : Form
+    public partial class DarkSouls3TextViewer : Form
     {
         private DarkSouls3Text _ds3;
         private string _lang;
 
-        public DarkSouls3Viewer()
+        public DarkSouls3TextViewer()
         {
             InitializeComponent();
             comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;
             checkedListBoxItems.SelectedIndexChanged += checkedListBoxItems_SelectedIndexChanged;
             listBoxItems.SelectedIndexChanged += listBoxItems_SelectedIndexChanged;
-            LoadMatisse();
+            LoadMatisseProFont();
 
             loadData("ds3.json");
         }
 
         private void LoadFontFamily(string fileName)
         {
-            var myFonts = new PrivateFontCollection();
-            myFonts.AddFontFile(fileName);
+            
         }
 
-        private void LoadMatisse()
+        private void LoadMatisseProFont()
         {
-            LoadFontFamily(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf"));
+            var myFonts = new PrivateFontCollection();
+            myFonts.AddFontFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf"));
         }
 
         string EscapeHtml(string s)
@@ -64,7 +64,7 @@ namespace DarkSouls3.TextViewer
 
         void listBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = (ViewerItem) listBoxItems.SelectedItem;
+            var item = (ViewerItem)listBoxItems.SelectedItem;
             var template = @"
 <head>
   <style>
@@ -97,13 +97,14 @@ namespace DarkSouls3.TextViewer
         {
             _lang = comboBoxLanguage.SelectedItem.ToString();
             updateItemList();
+            updateConversationList();
         }
 
         void updateItemList()
         {
             var items = new List<ViewerItem>();
             var lang = _ds3.Languages[_lang];
-            foreach(var item in checkedListBoxItems.CheckedItems)
+            foreach (var item in checkedListBoxItems.CheckedItems)
             {
                 switch (item.ToString())
                 {
@@ -127,6 +128,12 @@ namespace DarkSouls3.TextViewer
                 }
             }
             listBoxItems.DataSource = items.OrderBy(item => item.Item.Name).ToArray();
+        }
+
+        void updateConversationList()
+        {
+            var lang = _ds3.Languages[_lang];
+            listBoxConversations.DataSource = lang.Conversations.Values.ToArray();
         }
 
         private bool loadData(string filename)

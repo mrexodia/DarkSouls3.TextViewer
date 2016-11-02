@@ -1,6 +1,6 @@
 ﻿namespace DarkSouls3.TextViewer
 {
-    partial class DarkSouls3Viewer
+    partial class DarkSouls3TextViewer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DarkSouls3Viewer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DarkSouls3TextViewer));
             this.buttonLoadData = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageItems = new System.Windows.Forms.TabPage();
@@ -40,12 +40,20 @@
             this.tabPageContainers = new System.Windows.Forms.TabPage();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
+            this.splitContainerConversations = new System.Windows.Forms.SplitContainer();
+            this.listBoxConversations = new System.Windows.Forms.ListBox();
+            this.webBrowserConversations = new System.Windows.Forms.WebBrowser();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
             this.splitContainerItems.Panel1.SuspendLayout();
             this.splitContainerItems.Panel2.SuspendLayout();
             this.splitContainerItems.SuspendLayout();
+            this.tabPageConversations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerConversations)).BeginInit();
+            this.splitContainerConversations.Panel1.SuspendLayout();
+            this.splitContainerConversations.Panel2.SuspendLayout();
+            this.splitContainerConversations.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLoadData
@@ -126,6 +134,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxItems.FormattingEnabled = true;
+            this.listBoxItems.HorizontalScrollbar = true;
             this.listBoxItems.Location = new System.Drawing.Point(7, 87);
             this.listBoxItems.Name = "listBoxItems";
             this.listBoxItems.Size = new System.Drawing.Size(288, 342);
@@ -144,6 +153,7 @@
             // 
             // tabPageConversations
             // 
+            this.tabPageConversations.Controls.Add(this.splitContainerConversations);
             this.tabPageConversations.Location = new System.Drawing.Point(4, 22);
             this.tabPageConversations.Name = "tabPageConversations";
             this.tabPageConversations.Padding = new System.Windows.Forms.Padding(3);
@@ -179,7 +189,48 @@
             this.labelLanguage.TabIndex = 3;
             this.labelLanguage.Text = "Language:";
             // 
-            // DarkSouls3Viewer
+            // splitContainerConversations
+            // 
+            this.splitContainerConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerConversations.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerConversations.Name = "splitContainerConversations";
+            // 
+            // splitContainerConversations.Panel1
+            // 
+            this.splitContainerConversations.Panel1.Controls.Add(this.listBoxConversations);
+            // 
+            // splitContainerConversations.Panel2
+            // 
+            this.splitContainerConversations.Panel2.Controls.Add(this.webBrowserConversations);
+            this.splitContainerConversations.Size = new System.Drawing.Size(894, 431);
+            this.splitContainerConversations.SplitterDistance = 180;
+            this.splitContainerConversations.TabIndex = 0;
+            // 
+            // listBoxConversations
+            // 
+            this.listBoxConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxConversations.FormattingEnabled = true;
+            this.listBoxConversations.Location = new System.Drawing.Point(0, 0);
+            this.listBoxConversations.Name = "listBoxConversations";
+            this.listBoxConversations.Size = new System.Drawing.Size(177, 433);
+            this.listBoxConversations.TabIndex = 0;
+            // 
+            // webBrowserConversations
+            // 
+            this.webBrowserConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserConversations.Location = new System.Drawing.Point(3, 0);
+            this.webBrowserConversations.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserConversations.Name = "webBrowserConversations";
+            this.webBrowserConversations.Size = new System.Drawing.Size(707, 431);
+            this.webBrowserConversations.TabIndex = 0;
+            // 
+            // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -189,7 +240,7 @@
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.buttonLoadData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "DarkSouls3Viewer";
+            this.Name = "DarkSouls3TextViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dark Souls 3 Text Viewer";
             this.tabControlMain.ResumeLayout(false);
@@ -198,6 +249,11 @@
             this.splitContainerItems.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).EndInit();
             this.splitContainerItems.ResumeLayout(false);
+            this.tabPageConversations.ResumeLayout(false);
+            this.splitContainerConversations.Panel1.ResumeLayout(false);
+            this.splitContainerConversations.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerConversations)).EndInit();
+            this.splitContainerConversations.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,6 +272,9 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxItems;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.Label labelLanguage;
+        private System.Windows.Forms.SplitContainer splitContainerConversations;
+        private System.Windows.Forms.ListBox listBoxConversations;
+        private System.Windows.Forms.WebBrowser webBrowserConversations;
     }
 }
 
