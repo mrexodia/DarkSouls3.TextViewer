@@ -82,8 +82,11 @@ namespace DarkSouls3.TextViewer
 
         private void LoadMatisseProFont()
         {
+            var fontFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf");
+            if(!File.Exists(fontFile))
+                return;
             var myFonts = new PrivateFontCollection();
-            myFonts.AddFontFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf"));
+            myFonts.AddFontFile(fontFile);
         }
 
         void refreshLists()
@@ -212,16 +215,25 @@ namespace DarkSouls3.TextViewer
                 item.Item.Dlc);
         }
 
+        private void enableControls(bool enabled)
+        {
+            tabControlMain.Enabled = enabled;
+            comboBoxLanguage.Enabled = enabled;
+            textBoxFilter.Enabled = enabled;
+            buttonApply.Enabled = enabled;
+            buttonHelp.Enabled = enabled;
+        }
+
         private bool loadData(string filename)
         {
             try
             {
                 _ds3 = JSONHelper.Deserialize<DarkSouls3Text>(File.ReadAllText(filename, new UTF8Encoding(false)));
-                tabControlMain.Enabled = true;
+                enableControls(true);
             }
             catch
             {
-                tabControlMain.Enabled = false;
+                enableControls(false);
                 return false;
             }
             comboBoxLanguage.Items.AddRange(_ds3.Languages.Keys.ToArray());
