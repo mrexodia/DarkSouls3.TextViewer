@@ -51,6 +51,7 @@
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.labelFilter = new System.Windows.Forms.Label();
             this.buttonApply = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -341,11 +342,22 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Location = new System.Drawing.Point(618, 12);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(75, 23);
+            this.buttonHelp.TabIndex = 7;
+            this.buttonHelp.Text = "Help!";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
             // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 473);
+            this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.labelFilter);
             this.Controls.Add(this.textBoxFilter);
@@ -406,6 +418,7 @@
         private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.Label labelFilter;
         private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }
 

@@ -254,25 +254,25 @@ namespace DarkSouls3.TextViewer
             return _culture.CompareInfo.IndexOf(text, filter, CompareOptions.IgnoreCase) >= 0;
         }
 
-        bool MatchesOrFilter(string text, string[] orSplit)
-        {
-            foreach (var orf in orSplit)
-                if (MatchesNotFilter(text, orf))
-                    return true;
-            return false;
-        }
-
         bool MatchesAndFilter(string text, string[] andSplit)
         {
             foreach (var andf in andSplit)
-                if (!MatchesOrFilter(text, andf.Split('|')))
+                if (!MatchesNotFilter(text, andf))
                     return false;
             return true;
         }
 
+        bool MatchesOrFilter(string text, string[] orSplit)
+        {
+            foreach (var orf in orSplit)
+                if (MatchesAndFilter(text, orf.Split('&')))
+                    return true;
+            return false;
+        }
+
         bool MatchesFilter(string text)
         {
-            return MatchesAndFilter(text, _filter.Split('&'));
+            return MatchesOrFilter(text, _filter.Split('|'));
         }
 
         bool MatchesFilter(GenericItem item, string parent = "")
@@ -325,6 +325,40 @@ namespace DarkSouls3.TextViewer
         {
             _filter = textBoxFilter.Text;
             refreshLists();
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"Dark Souls 3 Text Viewer
+This tool helps you view all in-game text of Dark Souls 3.
+
+Filters
+You can use filters to find relevant information. Text
+is compared case-insensitive and you can combine
+multiple filters with operators & (AND) | (OR) ~ (NOT).
+
+- Identifiers can be found with '{id}'
+- DLC version can be found with 'dlcN'
+- Item type can be found with '{type}'
+
+Operator precedence:
+~ & |
+
+Examples
+Filter: aldrich|deep
+Effect: Everything containing 'aldrich' or 'deep'
+
+Filter: god&swamp
+Effect: Everything containing 'god' and 'swamp'
+
+Filter: aldrich&deep|children
+Effect: With braces: (aldrich&deep)|children
+
+Filter: {1200}
+Effect: Matches text with ID 1200
+
+Filter: magic&~{Magic}
+Effect: All non-{Magic} items containing 'magic'", "Help");
         }
     }
 
