@@ -40,6 +40,11 @@ namespace DarkSouls3.Structures
 
         [DataMember(Name = "content")]
         public Dictionary<string, string> Content = new Dictionary<string, string>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     [DataContract]
@@ -66,7 +71,7 @@ namespace DarkSouls3.Structures
             }
             if (quote.Length < Text.Length && !quote.ToString().EndsWith("..."))
                 quote.Append("...");
-            return string.Format("{0} \"{1}\"", Id, quote.ToString());
+            return string.Format("{0} \"{1}\"", Id, quote);
         }
     }
 

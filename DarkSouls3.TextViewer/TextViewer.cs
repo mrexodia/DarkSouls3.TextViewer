@@ -18,16 +18,72 @@ namespace DarkSouls3.TextViewer
         public DarkSouls3TextViewer()
         {
             InitializeComponent();
+            Load += DarkSouls3TextViewer_Load;
             comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;
             checkedListBoxItems.SelectedIndexChanged += checkedListBoxItems_SelectedIndexChanged;
             listBoxItems.SelectedIndexChanged += listBoxItems_SelectedIndexChanged;
             listBoxConversations.SelectedIndexChanged += listBoxConversations_SelectedIndexChanged;
+            listBoxContainers.SelectedIndexChanged += listBoxContainers_SelectedIndexChanged;
+            listBoxContainerContent.SelectedIndexChanged += listBoxContainerContent_SelectedIndexChanged;
             LoadMatisseProFont();
+
             for (var i = 0; i < checkedListBoxItems.Items.Count; i++)
                 checkedListBoxItems.SetItemChecked(i, true);
 
             loadData("ds3.json");
-            this.Load += DarkSouls3TextViewer_Load;
+        }
+
+        void listBoxContainerContent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (ContainerContent)listBoxContainerContent.SelectedItem;
+            var template = @"
+<head>
+  <style>
+    body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+  </style>
+</head>
+<body>
+  <h1>{0}</h1>
+  <p>{1}</p>
+</body>";
+            webBrowserContainer.DocumentText = string.Format(template,
+                item.Id,
+                EscapeHtml(item.Text));
+        }
+
+        public class ContainerContent
+        {
+            public string Id;
+            public string Text;
+
+            public ContainerContent(string id, string text)
+            {
+                Id = id;
+                Text = text;
+            }
+
+            public override string ToString()
+            {
+                var split = Text.Split('\n')[0].Split(' ');
+                var quote = new StringBuilder();
+                quote.Append(split[0]);
+                for (var i = 1; i < split.Length && quote.Length < 20; i++)
+                {
+                    quote.Append(' ');
+                    quote.Append(split[i]);
+                }
+                if (quote.Length < Text.Length && !quote.ToString().EndsWith("..."))
+                    quote.Append("...");
+                return string.Format("{0} \"{1}\"", Id, quote);
+            }
+        }
+
+        void listBoxContainers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var container = (Container) listBoxContainers.SelectedItem;
+            var data = new List<ContainerContent>();
+            listBoxContainerContent.DataSource =
+                container.Content.Select(it => new ContainerContent(it.Key, it.Value)).ToArray();
         }
 
         void listBoxConversations_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,25 +93,23 @@ namespace DarkSouls3.TextViewer
 <head>
   <style>
     body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+    .sub {{ font-size: 75% }}
   </style>
 </head>
 <body>
   <h1>{0}</h1>
-  <p>{1}<br>
-    <sub>ID: {2}, DLC: {3}</sub>
-  </p>
-</body>
-";
+  <p>{1}</p>
+  <p class='sub'>DLC: {2}<p>
+</body>";
             webBrowserConversation.DocumentText = string.Format(template,
-                item,
-                EscapeHtml(item.Text),
                 item.Id,
+                EscapeHtml(item.Text),
                 item.Dlc);
         }
 
         void DarkSouls3TextViewer_Load(object sender, EventArgs e)
         {
-            this.listBoxConversations.Font = new Font("FOT-Matisse ProN M", 8.25f);
+            listBoxConversations.Font = new Font("FOT-Matisse ProN M", 8.25f);
         }
 
         private void LoadMatisseProFont()
@@ -66,7 +120,12 @@ namespace DarkSouls3.TextViewer
 
         string EscapeHtml(string s)
         {
-            return s.Replace("\n", "<br>");
+            return s.Replace("&", "&amp;")
+                .Replace("<", "&lt;")
+                .Replace(">", "&gt;")
+                .Replace("\"", "&quot;")
+                .Replace("'", "	&apos;")
+                .Replace("\n", "<br>");
         }
 
         public class ViewerItem
@@ -93,16 +152,15 @@ namespace DarkSouls3.TextViewer
 <head>
   <style>
     body {{ font: normal 20px 'FOT-Matisse ProN M'; }}
+    .sub {{ font-size: 75% }}
   </style>
 </head>
 <body>
   <h1>{0}</h1>
   <h2>{1}</h2>
-  <p>{2}<br>
-    <sub>ID: {3}, DLC: {4}, Parent: {5}</sub>
-  </p>
-</body>
-";
+  <p>{2}</p>
+  <p class='sub'>ID: {3}, DLC: {4}, Parent: {5}</p>
+</body>";
             webBrowserItem.DocumentText = string.Format(template,
                 item,
                 EscapeHtml(item.Item.Description),
@@ -117,11 +175,17 @@ namespace DarkSouls3.TextViewer
             updateItemList();
         }
 
+        void refreshLists()
+        {
+            updateItemList();
+            updateConversationList();
+            updateContainerList();
+        }
+
         void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             _lang = comboBoxLanguage.SelectedItem.ToString();
-            updateItemList();
-            updateConversationList();
+            refreshLists();
         }
 
         void updateItemList()
@@ -158,6 +222,12 @@ namespace DarkSouls3.TextViewer
         {
             var lang = _ds3.Languages[_lang];
             listBoxConversations.DataSource = lang.Conversations.Values.ToArray();
+        }
+
+        void updateContainerList()
+        {
+            var lang = _ds3.Languages[_lang];
+            listBoxContainers.DataSource = lang.Containers.Values.ToArray();
         }
 
         private bool loadData(string filename)

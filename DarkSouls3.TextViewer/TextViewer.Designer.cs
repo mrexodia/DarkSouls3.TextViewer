@@ -43,6 +43,11 @@
             this.tabPageContainers = new System.Windows.Forms.TabPage();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
+            this.splitContainerContainers = new System.Windows.Forms.SplitContainer();
+            this.splitContainerContainerLists = new System.Windows.Forms.SplitContainer();
+            this.listBoxContainers = new System.Windows.Forms.ListBox();
+            this.listBoxContainerContent = new System.Windows.Forms.ListBox();
+            this.webBrowserContainer = new System.Windows.Forms.WebBrowser();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -54,6 +59,15 @@
             this.splitContainerConversations.Panel1.SuspendLayout();
             this.splitContainerConversations.Panel2.SuspendLayout();
             this.splitContainerConversations.SuspendLayout();
+            this.tabPageContainers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainers)).BeginInit();
+            this.splitContainerContainers.Panel1.SuspendLayout();
+            this.splitContainerContainers.Panel2.SuspendLayout();
+            this.splitContainerContainers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainerLists)).BeginInit();
+            this.splitContainerContainerLists.Panel1.SuspendLayout();
+            this.splitContainerContainerLists.Panel2.SuspendLayout();
+            this.splitContainerContainerLists.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLoadData
@@ -187,6 +201,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxConversations.FormattingEnabled = true;
+            this.listBoxConversations.HorizontalScrollbar = true;
             this.listBoxConversations.Location = new System.Drawing.Point(6, 6);
             this.listBoxConversations.Name = "listBoxConversations";
             this.listBoxConversations.Size = new System.Drawing.Size(241, 381);
@@ -205,10 +220,11 @@
             // 
             // tabPageContainers
             // 
+            this.tabPageContainers.Controls.Add(this.splitContainerContainers);
             this.tabPageContainers.Location = new System.Drawing.Point(4, 22);
             this.tabPageContainers.Name = "tabPageContainers";
             this.tabPageContainers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageContainers.Size = new System.Drawing.Size(894, 431);
+            this.tabPageContainers.Size = new System.Drawing.Size(894, 394);
             this.tabPageContainers.TabIndex = 2;
             this.tabPageContainers.Text = "Containers";
             this.tabPageContainers.UseVisualStyleBackColor = true;
@@ -229,6 +245,72 @@
             this.labelLanguage.Size = new System.Drawing.Size(58, 13);
             this.labelLanguage.TabIndex = 3;
             this.labelLanguage.Text = "Language:";
+            // 
+            // splitContainerContainers
+            // 
+            this.splitContainerContainers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerContainers.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerContainers.Name = "splitContainerContainers";
+            // 
+            // splitContainerContainers.Panel1
+            // 
+            this.splitContainerContainers.Panel1.Controls.Add(this.splitContainerContainerLists);
+            // 
+            // splitContainerContainers.Panel2
+            // 
+            this.splitContainerContainers.Panel2.Controls.Add(this.webBrowserContainer);
+            this.splitContainerContainers.Size = new System.Drawing.Size(888, 388);
+            this.splitContainerContainers.SplitterDistance = 416;
+            this.splitContainerContainers.TabIndex = 0;
+            // 
+            // splitContainerContainerLists
+            // 
+            this.splitContainerContainerLists.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerContainerLists.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerContainerLists.Name = "splitContainerContainerLists";
+            // 
+            // splitContainerContainerLists.Panel1
+            // 
+            this.splitContainerContainerLists.Panel1.Controls.Add(this.listBoxContainers);
+            // 
+            // splitContainerContainerLists.Panel2
+            // 
+            this.splitContainerContainerLists.Panel2.Controls.Add(this.listBoxContainerContent);
+            this.splitContainerContainerLists.Size = new System.Drawing.Size(416, 388);
+            this.splitContainerContainerLists.SplitterDistance = 202;
+            this.splitContainerContainerLists.TabIndex = 0;
+            // 
+            // listBoxContainers
+            // 
+            this.listBoxContainers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxContainers.FormattingEnabled = true;
+            this.listBoxContainers.HorizontalScrollbar = true;
+            this.listBoxContainers.Location = new System.Drawing.Point(3, 3);
+            this.listBoxContainers.Name = "listBoxContainers";
+            this.listBoxContainers.Size = new System.Drawing.Size(196, 381);
+            this.listBoxContainers.TabIndex = 0;
+            // 
+            // listBoxContainerContent
+            // 
+            this.listBoxContainerContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxContainerContent.FormattingEnabled = true;
+            this.listBoxContainerContent.Location = new System.Drawing.Point(3, 3);
+            this.listBoxContainerContent.Name = "listBoxContainerContent";
+            this.listBoxContainerContent.Size = new System.Drawing.Size(204, 381);
+            this.listBoxContainerContent.TabIndex = 0;
+            // 
+            // webBrowserContainer
+            // 
+            this.webBrowserContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowserContainer.Location = new System.Drawing.Point(0, 0);
+            this.webBrowserContainer.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserContainer.Name = "webBrowserContainer";
+            this.webBrowserContainer.Size = new System.Drawing.Size(468, 388);
+            this.webBrowserContainer.TabIndex = 0;
             // 
             // DarkSouls3TextViewer
             // 
@@ -254,6 +336,15 @@
             this.splitContainerConversations.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerConversations)).EndInit();
             this.splitContainerConversations.ResumeLayout(false);
+            this.tabPageContainers.ResumeLayout(false);
+            this.splitContainerContainers.Panel1.ResumeLayout(false);
+            this.splitContainerContainers.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainers)).EndInit();
+            this.splitContainerContainers.ResumeLayout(false);
+            this.splitContainerContainerLists.Panel1.ResumeLayout(false);
+            this.splitContainerContainerLists.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainerLists)).EndInit();
+            this.splitContainerContainerLists.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,6 +366,11 @@
         private System.Windows.Forms.SplitContainer splitContainerConversations;
         private System.Windows.Forms.ListBox listBoxConversations;
         private System.Windows.Forms.WebBrowser webBrowserConversation;
+        private System.Windows.Forms.SplitContainer splitContainerContainers;
+        private System.Windows.Forms.SplitContainer splitContainerContainerLists;
+        private System.Windows.Forms.ListBox listBoxContainers;
+        private System.Windows.Forms.ListBox listBoxContainerContent;
+        private System.Windows.Forms.WebBrowser webBrowserContainer;
     }
 }
 
