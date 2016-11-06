@@ -89,8 +89,7 @@ namespace DarkSouls3.Structures
         public ExpressionParser(string expression)
         {
             tokenize(expression);
-            if (!shuntingYard())
-                throw new Exception("Malformed expression!");
+            shuntingYard();
         }
 
         private bool isUnaryOperator()
@@ -133,7 +132,7 @@ namespace DarkSouls3.Structures
                 _tokens.Add(new Token(_curToken, Token.Type.Data));
         }
 
-        private bool shuntingYard()
+        private void shuntingYard()
         {
             //Implementation of Dijkstra's Shunting-yard algorithm
             var queue = new Queue<Token>(_tokens.Count);
@@ -152,7 +151,7 @@ namespace DarkSouls3.Structures
                         while (true)
                         {
                             if (stack.Count == 0) //empty stack = bracket mismatch
-                                return false;
+                                throw new Exception("Mismatched parentheses");
                             var curToken = stack.Pop();
                             if (curToken.type == Token.Type.OpenBracket)
                                 break;
@@ -181,11 +180,10 @@ namespace DarkSouls3.Structures
             {
                 var curToken = stack.Pop();
                 if (curToken.type == Token.Type.OpenBracket || curToken.type == Token.Type.CloseBracket)
-                    return false;
+                    throw new Exception("Mismatched parentheses");
                 queue.Enqueue(curToken);
             }
             _prefixTokens = queue.ToArray();
-            return true;
         }
 
         private void addOperatorToken(char ch, Token.Type type)
@@ -227,11 +225,10 @@ namespace DarkSouls3.Structures
 
         public delegate bool Evaluate(string value);
 
-        public bool Calculate(out bool value, Evaluate eval)
+        public bool Calculate(Evaluate eval)
         {
-            value = false;
             if (_prefixTokens == null)
-                return false;
+                throw new Exception("No tokens to process");
             var stack = new Stack<bool>(_prefixTokens.Length);
             foreach (var token in _prefixTokens)
             {
@@ -242,7 +239,7 @@ namespace DarkSouls3.Structures
                         case Token.Type.OperatorNot:
                             {
                                 if (stack.Count < 1)
-                                    return false;
+                                    throw new Exception("Not enough operands");
                                 var op1 = stack.Pop();
                                 bool result;
                                 operation(token.type, op1, false, out result);
@@ -254,7 +251,7 @@ namespace DarkSouls3.Structures
                         case Token.Type.OperatorOr:
                             {
                                 if (stack.Count < 2)
-                                    return false;
+                                    throw new Exception("Not enough operands");
                                 var op2 = stack.Pop();
                                 var op1 = stack.Pop();
                                 bool result;
@@ -271,9 +268,8 @@ namespace DarkSouls3.Structures
                     stack.Push(eval(token.data));
             }
             if (stack.Count == 0)
-                return false;
-            value = stack.Pop();
-            return true;
+                throw new Exception("Expression has no result.");
+            return stack.Pop();
         }
     }
 }

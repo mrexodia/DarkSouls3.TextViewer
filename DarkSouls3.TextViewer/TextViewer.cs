@@ -74,10 +74,17 @@ namespace DarkSouls3.TextViewer
         {
             var container = (Container)listBoxContainers.SelectedItem;
             var data = new List<ContainerContent>();
-            listBoxContainerContent.DataSource =
-                container.Content.Where(MatchesFilter)
-                    .Select(it => new ContainerContent(it.Key, it.Value))
-                    .ToArray();
+            try
+            {
+                listBoxContainerContent.DataSource =
+                    container.Content.Where(MatchesFilter)
+                        .Select(it => new ContainerContent(it.Key, it.Value))
+                        .ToArray();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Filter error");
+            }
         }
 
         private void LoadMatisseProFont()
@@ -124,14 +131,28 @@ namespace DarkSouls3.TextViewer
                         throw new NotImplementedException();
                 }
             }
-            listBoxItems.DataSource = items.Where(MatchesFilter).OrderBy(item => item.Item.Name).ToArray();
+            try
+            {
+                listBoxItems.DataSource = items.Where(MatchesFilter).OrderBy(item => item.Item.Name).ToArray();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Filter error");
+            }
         }
 
         void updateConversationList()
         {
             webBrowserConversation.DocumentText = "";
             var lang = _ds3.Languages[_lang];
-            listBoxConversations.DataSource = lang.Conversations.Values.Where(MatchesFilter).ToArray();
+            try
+            {
+                listBoxConversations.DataSource = lang.Conversations.Values.Where(MatchesFilter).ToArray();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Filter error");
+            }
         }
 
         void updateContainerList()
@@ -139,7 +160,14 @@ namespace DarkSouls3.TextViewer
             webBrowserContainer.DocumentText = "";
             var lang = _ds3.Languages[_lang];
             listBoxContainerContent.DataSource = new object[0];
-            listBoxContainers.DataSource = lang.Containers.Values.Where(MatchesFilter).ToArray();
+            try
+            {
+                listBoxContainers.DataSource = lang.Containers.Values.Where(MatchesFilter).ToArray();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Filter error");
+            }
         }
 
         string EscapeHtml(string s)
@@ -259,35 +287,16 @@ namespace DarkSouls3.TextViewer
                 MessageBox.Show("Failed to load data...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        bool MatchesNotFilter(string text, string filter)
-        {
-            if (filter.StartsWith("~"))
-                return _culture.CompareInfo.IndexOf(text, filter.Substring(1), CompareOptions.IgnoreCase) < 0;
-            return _culture.CompareInfo.IndexOf(text, filter, CompareOptions.IgnoreCase) >= 0;
-        }
-
         bool MatchesFilter(string text, string filter)
         {
-            var orIndex = filter.IndexOf('|');
-            var andIndex = filter.IndexOf('&');
-            if (orIndex < 0 && andIndex < 0)
-                return MatchesNotFilter(text, filter);
-            if (orIndex < andIndex || andIndex < 0)
-                return MatchesFilter(text, filter.Substring(0, orIndex)) ||
-                       MatchesFilter(text, filter.Substring(orIndex + 1));
-            if (andIndex < orIndex || orIndex < 0)
-                return MatchesFilter(text, filter.Substring(0, andIndex)) &&
-                       MatchesFilter(text, filter.Substring(andIndex + 1));
-            throw new ArgumentException();
+            return _culture.CompareInfo.IndexOf(text, filter, CompareOptions.IgnoreCase) >= 0;
         }
 
         bool MatchesFilter(string text)
         {
             if (_filter == null)
                 return true;
-            bool result;
-            _filter.Calculate(out result, filter => MatchesFilter(text, filter));
-            return result;
+            return _filter.Calculate(filter => MatchesFilter(text, filter));
         }
 
         bool MatchesFilter(GenericItem item, string parent = "")
@@ -341,10 +350,11 @@ namespace DarkSouls3.TextViewer
             try
             {
                 _filter = new ExpressionParser(textBoxFilter.Text);
+                _filter.Calculate(str => true);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid filter!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Invalid filter!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             refreshLists();
@@ -364,8 +374,12 @@ multiple filters with operators & (AND) | (OR) ~ (NOT).
 - DLC version can be found with 'dlcN'
 - Item type can be found with '{type}'
 
-Operators are evaluated in order or appearance.
-a|b&c|d = a|(b&(c|d))
+Operators are evaluated in the following order:
+
+1. Parentheses
+2. NOT
+3. AND
+4. OR
 
 Examples
 Filter: aldrich|deep
