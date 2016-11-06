@@ -380,6 +380,11 @@ Effect: Matches text with ID 1200
 Filter: magic&~{Magic}
 Effect: All non-{Magic} items containing 'magic'", "Help");
         }
+
+		private void linkBonfireSideChat_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://www.bonfireside.chat");
+		}
     }
 
     public class ContainerContent
