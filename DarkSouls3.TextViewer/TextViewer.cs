@@ -15,7 +15,7 @@ namespace DarkSouls3.TextViewer
     {
         private DarkSouls3Text _ds3;
         private string _lang;
-        private string _filter = "";
+        private ExpressionParser _filter;
         private CultureInfo _culture;
 
         public DarkSouls3TextViewer()
@@ -83,7 +83,7 @@ namespace DarkSouls3.TextViewer
         private void LoadMatisseProFont()
         {
             var fontFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FOT-MatissePro-DB.otf");
-            if(!File.Exists(fontFile))
+            if (!File.Exists(fontFile))
                 return;
             var myFonts = new PrivateFontCollection();
             myFonts.AddFontFile(fontFile);
@@ -283,7 +283,11 @@ namespace DarkSouls3.TextViewer
 
         bool MatchesFilter(string text)
         {
-            return _filter.Length == 0 || MatchesFilter(text, _filter);
+            if (_filter == null)
+                return true;
+            bool result;
+            _filter.Calculate(out result, filter => MatchesFilter(text, filter));
+            return result;
         }
 
         bool MatchesFilter(GenericItem item, string parent = "")
@@ -334,12 +338,11 @@ namespace DarkSouls3.TextViewer
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
-            _filter = textBoxFilter.Text;
-            if (_filter.StartsWith("&") || _filter.StartsWith("|") ||
-                _filter.EndsWith("&") || _filter.EndsWith("|") || _filter.EndsWith("~") ||
-                _filter.Contains("&&") || _filter.Contains("||") || _filter.Contains("~~") ||
-                _filter.Contains("~|") || _filter.Contains("~&") ||
-                _filter.Contains("&|") || _filter.Contains("|&"))
+            try
+            {
+                _filter = new ExpressionParser(textBoxFilter.Text);
+            }
+            catch
             {
                 MessageBox.Show("Invalid filter!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -381,10 +384,10 @@ Filter: magic&~{Magic}
 Effect: All non-{Magic} items containing 'magic'", "Help");
         }
 
-		private void linkBonfireSideChat_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			System.Diagnostics.Process.Start("http://www.bonfireside.chat");
-		}
+        private void linkBonfireSideChat_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.bonfireside.chat");
+        }
     }
 
     public class ContainerContent

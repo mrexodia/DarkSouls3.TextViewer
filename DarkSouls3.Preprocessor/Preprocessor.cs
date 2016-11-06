@@ -144,7 +144,7 @@ namespace DarkSouls3.Preprocessor
                 Array.Sort(keys);
                 if (keys.Length == 0)
                     continue;
-                for (var i = 0; i < keys.Length;)
+                for (var i = 0; i < keys.Length; )
                 {
                     var id = keys[i];
                     var prevId = id;
