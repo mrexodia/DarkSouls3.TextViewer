@@ -12,7 +12,7 @@ You can use filters to find relevant information. Text is compared case-insensit
 
 Operators are evaluated in the following order:
 
-1. Brackets
+1. Parentheses
 2. NOT
 3. AND
 4. OR
