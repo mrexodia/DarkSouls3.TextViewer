@@ -268,7 +268,7 @@ namespace DarkSouls3.Structures
                     stack.Push(eval(token.data));
             }
             if (stack.Count == 0)
-                throw new Exception("Expression has no result.");
+                return true;
             return stack.Pop();
         }
     }
