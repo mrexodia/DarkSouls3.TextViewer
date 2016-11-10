@@ -53,6 +53,8 @@
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.linkBonfireSideChat = new System.Windows.Forms.LinkLabel();
+            this.tabPageAnalysis = new System.Windows.Forms.TabPage();
+            this.buttonGraph = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -73,6 +75,7 @@
             this.splitContainerContainerLists.Panel1.SuspendLayout();
             this.splitContainerContainerLists.Panel2.SuspendLayout();
             this.splitContainerContainerLists.SuspendLayout();
+            this.tabPageAnalysis.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLoadData
@@ -87,12 +90,13 @@
             // 
             // tabControlMain
             // 
-            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageItems);
             this.tabControlMain.Controls.Add(this.tabPageConversations);
             this.tabControlMain.Controls.Add(this.tabPageContainers);
+            this.tabControlMain.Controls.Add(this.tabPageAnalysis);
             this.tabControlMain.Location = new System.Drawing.Point(12, 41);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -112,8 +116,8 @@
             // 
             // splitContainerItems
             // 
-            this.splitContainerItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainerItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainerItems.Location = new System.Drawing.Point(0, 0);
             this.splitContainerItems.Name = "splitContainerItems";
@@ -132,7 +136,7 @@
             // 
             // checkedListBoxItems
             // 
-            this.checkedListBoxItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.checkedListBoxItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxItems.CheckOnClick = true;
             this.checkedListBoxItems.FormattingEnabled = true;
@@ -149,8 +153,8 @@
             // 
             // listBoxItems
             // 
-            this.listBoxItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.listBoxItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxItems.FormattingEnabled = true;
             this.listBoxItems.HorizontalScrollbar = true;
@@ -161,8 +165,8 @@
             // 
             // webBrowserItem
             // 
-            this.webBrowserItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.webBrowserItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowserItem.Location = new System.Drawing.Point(3, 0);
             this.webBrowserItem.MinimumSize = new System.Drawing.Size(20, 20);
@@ -183,8 +187,8 @@
             // 
             // splitContainerConversations
             // 
-            this.splitContainerConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainerConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainerConversations.Location = new System.Drawing.Point(0, 0);
             this.splitContainerConversations.Name = "splitContainerConversations";
@@ -202,8 +206,8 @@
             // 
             // listBoxConversations
             // 
-            this.listBoxConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.listBoxConversations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxConversations.FormattingEnabled = true;
             this.listBoxConversations.HorizontalScrollbar = true;
@@ -214,8 +218,8 @@
             // 
             // webBrowserConversation
             // 
-            this.webBrowserConversation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.webBrowserConversation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowserConversation.Location = new System.Drawing.Point(3, 0);
             this.webBrowserConversation.MinimumSize = new System.Drawing.Size(20, 20);
@@ -270,8 +274,8 @@
             // 
             // listBoxContainers
             // 
-            this.listBoxContainers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.listBoxContainers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxContainers.FormattingEnabled = true;
             this.listBoxContainers.HorizontalScrollbar = true;
@@ -282,8 +286,8 @@
             // 
             // listBoxContainerContent
             // 
-            this.listBoxContainerContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.listBoxContainerContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxContainerContent.FormattingEnabled = true;
             this.listBoxContainerContent.Location = new System.Drawing.Point(3, 3);
@@ -364,6 +368,27 @@
             this.linkBonfireSideChat.Text = "Dedicated to Bonfireside Chat";
             this.linkBonfireSideChat.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBonfireSideChat_LinkClicked);
             // 
+            // tabPageAnalysis
+            // 
+            this.tabPageAnalysis.Controls.Add(this.buttonGraph);
+            this.tabPageAnalysis.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAnalysis.Name = "tabPageAnalysis";
+            this.tabPageAnalysis.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAnalysis.Size = new System.Drawing.Size(894, 394);
+            this.tabPageAnalysis.TabIndex = 3;
+            this.tabPageAnalysis.Text = "Analysis";
+            this.tabPageAnalysis.UseVisualStyleBackColor = true;
+            // 
+            // buttonGraph
+            // 
+            this.buttonGraph.Location = new System.Drawing.Point(7, 7);
+            this.buttonGraph.Name = "buttonGraph";
+            this.buttonGraph.Size = new System.Drawing.Size(75, 23);
+            this.buttonGraph.TabIndex = 0;
+            this.buttonGraph.Text = "Graph";
+            this.buttonGraph.UseVisualStyleBackColor = true;
+            this.buttonGraph.Click += new System.EventHandler(this.buttonGraph_Click);
+            // 
             // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -402,6 +427,7 @@
             this.splitContainerContainerLists.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainerLists)).EndInit();
             this.splitContainerContainerLists.ResumeLayout(false);
+            this.tabPageAnalysis.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -433,6 +459,8 @@
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.LinkLabel linkBonfireSideChat;
+        private System.Windows.Forms.TabPage tabPageAnalysis;
+        private System.Windows.Forms.Button buttonGraph;
     }
 }
 

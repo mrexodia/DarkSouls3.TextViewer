@@ -72,7 +72,7 @@ namespace DarkSouls3.TextViewer
 
         void listBoxContainers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var container = (Container)listBoxContainers.SelectedItem;
+            var container = (Container) listBoxContainers.SelectedItem;
             var data = new List<ContainerContent>();
             try
             {
@@ -181,7 +181,7 @@ namespace DarkSouls3.TextViewer
 
         void listBoxContainerContent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = (ContainerContent)listBoxContainerContent.SelectedItem;
+            var item = (ContainerContent) listBoxContainerContent.SelectedItem;
             var template = @"
 <head>
   <style>
@@ -199,7 +199,7 @@ namespace DarkSouls3.TextViewer
 
         void listBoxConversations_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = (Conversation)listBoxConversations.SelectedItem;
+            var item = (Conversation) listBoxConversations.SelectedItem;
             var template = @"
 <head>
   <style>
@@ -220,7 +220,7 @@ namespace DarkSouls3.TextViewer
 
         void listBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = (ViewerItem)listBoxItems.SelectedItem;
+            var item = (ViewerItem) listBoxItems.SelectedItem;
             var template = @"
 <head>
   <style>
@@ -401,6 +401,44 @@ Effect: All non-{Magic} items containing 'magic'", "Help");
         private void linkBonfireSideChat_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.bonfireside.chat");
+        }
+
+        private void buttonGraph_Click(object sender, EventArgs e)
+        {
+            string[] blacklist;
+            var file = "blacklist_" + comboBoxLanguage.SelectedItem + ".txt";
+            try
+            {
+                blacklist = File.ReadAllLines(file);
+            }
+            catch
+            {
+                MessageBox.Show("Could not find " + file);
+                blacklist = null;
+            }
+            var analysis = new Analysis(blacklist);
+            var items = new List<string>();
+            var builder = new StringBuilder();
+            foreach (var it in listBoxItems.Items)
+            {
+                builder.Clear();
+                var item = (ViewerItem) it;
+                builder.AppendLine(item.Item.Name);
+                builder.AppendLine(item.Item.Description);
+                builder.AppendLine(item.Item.Knowledge);
+                items.Add(builder.ToString().ToLower(_culture));
+            }
+            MessageBox.Show("Built items!");
+            foreach (var item in items)
+                analysis.AddText(item);
+            MessageBox.Show("Built nodes!");
+            analysis.Prepare();
+            MessageBox.Show("Prepared matrix!");
+            foreach(var item in items)
+                analysis.ConnectText(item);
+            MessageBox.Show("Connected items!");
+            File.WriteAllText("graph.dot", analysis.ToDot());
+            MessageBox.Show("Done!");
         }
     }
 
