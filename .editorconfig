@@ -6,6 +6,6 @@ root = true
 end_of_line = CRLF
 
 ; Tab indentation
-[*.{cs}]
+[*.cs]
 indent_style = space
 tab_width = 4

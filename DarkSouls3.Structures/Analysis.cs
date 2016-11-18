@@ -8,7 +8,7 @@ namespace DarkSouls3.Structures
 {
     public class Analysis
     {
-        private readonly HashSet<string> _nodeSet = new HashSet<string>();
+        private readonly Dictionary<string, int> _nodeSet = new Dictionary<string, int>();
         private readonly string[] _blacklist;
 
         public Analysis(string[] blacklist)
@@ -29,21 +29,24 @@ namespace DarkSouls3.Structures
         public void AddText(string text)
         {
             foreach (var s in SplitText(text))
-                _nodeSet.Add(s);
+            {
+                var count = _nodeSet.ContainsKey(s) ? _nodeSet[s] : 0;
+                _nodeSet[s] = count + 1;
+            }
         }
 
         private readonly List<string> _nodeList = new List<string>();
         private readonly Dictionary<string, int> _nodeIndex = new Dictionary<string, int>();
-        private bool[,] _edges;
+        private int[,] _edges;
 
         public void Prepare()
         {
             foreach (var n in _nodeSet)
-                _nodeList.Add(n);
+                _nodeList.Add(n.Key);
             _nodeSet.Clear();
             for (var i = 0; i < _nodeList.Count; i++)
                 _nodeIndex[_nodeList[i]] = i;
-            _edges = new bool[_nodeList.Count, _nodeList.Count];
+            _edges = new int[_nodeList.Count, _nodeList.Count];
         }
 
         public void ConnectText(string text)
@@ -54,8 +57,8 @@ namespace DarkSouls3.Structures
                 {
                     var idxi = _nodeIndex[split[i]];
                     var idxj = _nodeIndex[split[j]];
-                    _edges[idxi, idxj] = true;
-                    _edges[idxj, idxi] = true;
+                    _edges[idxi, idxj]++;
+                    _edges[idxj, idxi]++;
                 }
         }
 
@@ -71,14 +74,14 @@ namespace DarkSouls3.Structures
             var nedges = new bool[w, w];
             for (var i = 0; i < w; i++)
                 for (var j = 0; j < w; j++)
-                    nedges[i, j] = _edges[i, j];
+                    nedges[i, j] = _edges[i, j] > 0;
             for (var i = 0; i < w; i++)
                 for (var j = 0; j < w; j++)
                     if (nedges[i, j] && i != j)
                     {
                         nedges[j, i] = false;
                         nedges[i, j] = false;
-                        result.AppendFormat("    {0} -- {1};\n", _nodeList[i], _nodeList[j]);
+                        result.AppendFormat("    {0} -- {1} [weight={2}];\n", _nodeList[i], _nodeList[j], _edges[i, j]);
                     }
 
             result.AppendLine();
