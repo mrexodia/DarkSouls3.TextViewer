@@ -29,7 +29,13 @@ namespace DarkSouls3.TextViewer
             listBoxContainers.SelectedIndexChanged += listBoxContainers_SelectedIndexChanged;
             listBoxContainerContent.SelectedIndexChanged += listBoxContainerContent_SelectedIndexChanged;
             AcceptButton = buttonApply;
-            LoadMatisseProFont();
+            try
+            {
+                LoadMatisseProFont();
+            }
+            catch
+            {
+            }
 
             for (var i = 0; i < checkedListBoxItems.Items.Count; i++)
                 checkedListBoxItems.SetItemChecked(i, true);
