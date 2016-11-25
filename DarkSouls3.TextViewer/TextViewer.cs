@@ -313,9 +313,9 @@ namespace DarkSouls3.TextViewer
             builder.AppendFormat("{{{0}}}", item.Id);
             builder.AppendFormat("dlc{0}", item.Dlc);
             builder.AppendLine();
-            builder.Append(item.Name.Replace("\n", ""));
-            builder.Append(item.Description.Replace("\n", ""));
-            builder.Append(item.Knowledge.Replace("\n", ""));
+            builder.Append(item.Name.Replace("\n", " "));
+            builder.Append(item.Description.Replace("\n", " "));
+            builder.Append(item.Knowledge.Replace("\n", " "));
             return MatchesFilter(builder.ToString());
         }
 
@@ -330,7 +330,7 @@ namespace DarkSouls3.TextViewer
             builder.AppendFormat("{{{0}}}", conversation.Id);
             builder.AppendFormat("dlc{0}", conversation.Dlc);
             builder.AppendLine();
-            builder.Append(conversation.Text.Replace("\n", ""));
+            builder.Append(conversation.Text.Replace("\n", " "));
             return MatchesFilter(builder.ToString());
         }
 
@@ -339,7 +339,7 @@ namespace DarkSouls3.TextViewer
             var builder = new StringBuilder();
             builder.AppendFormat("{{{0}}}", it.Key);
             builder.AppendLine();
-            builder.Append(it.Value.Replace("\n", ""));
+            builder.Append(it.Value.Replace("\n", " "));
             return MatchesFilter(builder.ToString());
         }
 
