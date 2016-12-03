@@ -46,6 +46,9 @@
             this.listBoxContainers = new System.Windows.Forms.ListBox();
             this.listBoxContainerContent = new System.Windows.Forms.ListBox();
             this.webBrowserContainer = new System.Windows.Forms.WebBrowser();
+            this.tabPageAnalysis = new System.Windows.Forms.TabPage();
+            this.linkLabelGephi = new System.Windows.Forms.LinkLabel();
+            this.buttonGraph = new System.Windows.Forms.Button();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
             this.textBoxFilter = new System.Windows.Forms.TextBox();
@@ -53,8 +56,7 @@
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.linkBonfireSideChat = new System.Windows.Forms.LinkLabel();
-            this.tabPageAnalysis = new System.Windows.Forms.TabPage();
-            this.buttonGraph = new System.Windows.Forms.Button();
+            this.linkLabelCreatedBy = new System.Windows.Forms.LinkLabel();
             this.tabControlMain.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerItems)).BeginInit();
@@ -304,6 +306,39 @@
             this.webBrowserContainer.Size = new System.Drawing.Size(468, 388);
             this.webBrowserContainer.TabIndex = 0;
             // 
+            // tabPageAnalysis
+            // 
+            this.tabPageAnalysis.Controls.Add(this.linkLabelGephi);
+            this.tabPageAnalysis.Controls.Add(this.buttonGraph);
+            this.tabPageAnalysis.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAnalysis.Name = "tabPageAnalysis";
+            this.tabPageAnalysis.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAnalysis.Size = new System.Drawing.Size(894, 394);
+            this.tabPageAnalysis.TabIndex = 3;
+            this.tabPageAnalysis.Text = "Analysis";
+            this.tabPageAnalysis.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelGephi
+            // 
+            this.linkLabelGephi.AutoSize = true;
+            this.linkLabelGephi.Location = new System.Drawing.Point(88, 12);
+            this.linkLabelGephi.Name = "linkLabelGephi";
+            this.linkLabelGephi.Size = new System.Drawing.Size(201, 13);
+            this.linkLabelGephi.TabIndex = 1;
+            this.linkLabelGephi.TabStop = true;
+            this.linkLabelGephi.Text = "You can use Gephi to visualize graph.dot";
+            this.linkLabelGephi.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGephi_LinkClicked);
+            // 
+            // buttonGraph
+            // 
+            this.buttonGraph.Location = new System.Drawing.Point(7, 7);
+            this.buttonGraph.Name = "buttonGraph";
+            this.buttonGraph.Size = new System.Drawing.Size(75, 23);
+            this.buttonGraph.TabIndex = 0;
+            this.buttonGraph.Text = "Graph";
+            this.buttonGraph.UseVisualStyleBackColor = true;
+            this.buttonGraph.Click += new System.EventHandler(this.buttonGraph_Click);
+            // 
             // comboBoxLanguage
             // 
             this.comboBoxLanguage.FormattingEnabled = true;
@@ -359,8 +394,9 @@
             // 
             // linkBonfireSideChat
             // 
+            this.linkBonfireSideChat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkBonfireSideChat.AutoSize = true;
-            this.linkBonfireSideChat.Location = new System.Drawing.Point(766, 17);
+            this.linkBonfireSideChat.Location = new System.Drawing.Point(766, 9);
             this.linkBonfireSideChat.Name = "linkBonfireSideChat";
             this.linkBonfireSideChat.Size = new System.Drawing.Size(148, 13);
             this.linkBonfireSideChat.TabIndex = 8;
@@ -368,32 +404,24 @@
             this.linkBonfireSideChat.Text = "Dedicated to Bonfireside Chat";
             this.linkBonfireSideChat.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBonfireSideChat_LinkClicked);
             // 
-            // tabPageAnalysis
+            // linkLabelCreatedBy
             // 
-            this.tabPageAnalysis.Controls.Add(this.buttonGraph);
-            this.tabPageAnalysis.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAnalysis.Name = "tabPageAnalysis";
-            this.tabPageAnalysis.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAnalysis.Size = new System.Drawing.Size(894, 394);
-            this.tabPageAnalysis.TabIndex = 3;
-            this.tabPageAnalysis.Text = "Analysis";
-            this.tabPageAnalysis.UseVisualStyleBackColor = true;
-            // 
-            // buttonGraph
-            // 
-            this.buttonGraph.Location = new System.Drawing.Point(7, 7);
-            this.buttonGraph.Name = "buttonGraph";
-            this.buttonGraph.Size = new System.Drawing.Size(75, 23);
-            this.buttonGraph.TabIndex = 0;
-            this.buttonGraph.Text = "Graph";
-            this.buttonGraph.UseVisualStyleBackColor = true;
-            this.buttonGraph.Click += new System.EventHandler(this.buttonGraph_Click);
+            this.linkLabelCreatedBy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelCreatedBy.AutoSize = true;
+            this.linkLabelCreatedBy.Location = new System.Drawing.Point(780, 25);
+            this.linkLabelCreatedBy.Name = "linkLabelCreatedBy";
+            this.linkLabelCreatedBy.Size = new System.Drawing.Size(134, 13);
+            this.linkLabelCreatedBy.TabIndex = 9;
+            this.linkLabelCreatedBy.TabStop = true;
+            this.linkLabelCreatedBy.Text = "Created by Duncan Ogilvie";
+            this.linkLabelCreatedBy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCreatedBy_LinkClicked);
             // 
             // DarkSouls3TextViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 473);
+            this.Controls.Add(this.linkLabelCreatedBy);
             this.Controls.Add(this.linkBonfireSideChat);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonApply);
@@ -428,6 +456,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerContainerLists)).EndInit();
             this.splitContainerContainerLists.ResumeLayout(false);
             this.tabPageAnalysis.ResumeLayout(false);
+            this.tabPageAnalysis.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,6 +490,8 @@
         private System.Windows.Forms.LinkLabel linkBonfireSideChat;
         private System.Windows.Forms.TabPage tabPageAnalysis;
         private System.Windows.Forms.Button buttonGraph;
+        private System.Windows.Forms.LinkLabel linkLabelCreatedBy;
+        private System.Windows.Forms.LinkLabel linkLabelGephi;
     }
 }
 

@@ -446,6 +446,16 @@ Effect: All non-{Magic} items containing 'magic'", "Help");
             File.WriteAllText("graph.dot", analysis.ToDot());
             MessageBox.Show("Done!");
         }
+
+        private void linkLabelCreatedBy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mrexodia");
+        }
+
+        private void linkLabelGephi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://gephi.org");
+        }
     }
 
     public class ContainerContent
