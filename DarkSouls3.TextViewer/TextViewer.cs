@@ -21,6 +21,7 @@ namespace DarkSouls3.TextViewer
         public DarkSouls3TextViewer()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             tabControlMain.TabPages.Remove(tabPageAnalysis);
             Load += DarkSouls3TextViewer_Load;
             comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;

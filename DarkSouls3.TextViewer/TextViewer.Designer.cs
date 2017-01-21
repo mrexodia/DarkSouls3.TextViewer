@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DarkSouls3TextViewer));
             this.buttonLoadData = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageItems = new System.Windows.Forms.TabPage();
@@ -431,7 +430,6 @@
             this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.buttonLoadData);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DarkSouls3TextViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dark Souls 3 Text Viewer";
