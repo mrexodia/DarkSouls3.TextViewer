@@ -1,10 +1,16 @@
 # Dark Souls 3 Text Viewer
 
+[![Build status](https://ci.appveyor.com/api/projects/status/o21nv9fo35iuqjy2?svg=true)](https://ci.appveyor.com/project/mrexodia/darksouls3-textviewer)
+
 This tool helps you view all in-game text of [Dark Souls 3](https://www.darksouls3.com).
 
 **Disclaimer**: The contents of the `ds3.json` file are derived from the Dark Souls 3 game files owned by [From Software](http://www.fromsoftware.jp). They are extracted for research purposes and there will be no commercial usage.
 
 ![screenshot](https://i.imgur.com/E0XuU2Y.png)
+
+## Download
+
+You can find a snapshot  of the latest commit [here](https://ci.appveyor.com/project/mrexodia/darksouls3-textviewer/build/artifacts). Signed, more stable versions can be found [here](https://github.com/mrexodia/DarkSouls3.TextViewer/releases)
 
 ## Filters
 
