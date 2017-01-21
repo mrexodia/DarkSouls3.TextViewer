@@ -4,6 +4,8 @@ This tool helps you view all in-game text of [Dark Souls 3](https://www.darksoul
 
 **Disclaimer**: The contents of the `ds3.json` file are derived from the Dark Souls 3 game files owned by [From Software](http://www.fromsoftware.jp). They are extracted for research purposes and there will be no commercial usage.
 
+![screenshot](https://i.imgur.com/E0XuU2Y.png)
+
 ## Filters
 
 You can use filters to find relevant information. Text is compared case-insensitive and you can combine multiple filters with operators & (AND) | (OR) ~ (NOT).
