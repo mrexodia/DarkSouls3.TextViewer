@@ -21,6 +21,7 @@ namespace DarkSouls3.TextViewer
         public DarkSouls3TextViewer()
         {
             InitializeComponent();
+            tabControlMain.TabPages.Remove(tabPageAnalysis);
             Load += DarkSouls3TextViewer_Load;
             comboBoxLanguage.SelectedIndexChanged += comboBoxLanguage_SelectedIndexChanged;
             checkedListBoxItems.SelectedIndexChanged += checkedListBoxItems_SelectedIndexChanged;
@@ -449,7 +450,7 @@ Effect: All non-{Magic} items containing 'magic'", "Help");
 
         private void linkLabelCreatedBy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/mrexodia");
+            System.Diagnostics.Process.Start("https://github.com/mrexodia/DarkSouls3.TextViewer");
         }
 
         private void linkLabelGephi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
