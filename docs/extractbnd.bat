@@ -1,2 +1,2 @@
 @echo off
-for /r %%i in (*.bnd) do BinderTool.exe "%%i" .
+for /r %%i in (*.msgbnd) do BinderTool.exe "%%i" .

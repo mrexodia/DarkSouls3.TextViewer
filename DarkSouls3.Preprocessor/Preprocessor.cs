@@ -13,15 +13,21 @@ namespace DarkSouls3.Preprocessor
         static void RenameFiles()
         {
             var jp_en = File.ReadAllLines("jp_en_filenames.txt");
-            var translate = jp_en.Select(t => t.Split('\t')).ToDictionary(split => split[0], split => split[1]);
-            var files = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.fmg", SearchOption.AllDirectories);
+            var translate = jp_en.Select(t => t.Replace(".fmg", ".txt").Split('\t')).ToDictionary(split => split[0], split => split[1]);
+            var files = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.txt", SearchOption.AllDirectories).ToArray();
             foreach (var file in files)
             {
                 var fname = Path.GetFileName(file);
                 if (!translate.ContainsKey(fname))
                 {
-                    Console.WriteLine("Skipping {0}", file);
-                    continue;
+                    var dlc1name = fname.Replace("dlc2", "dlc1");
+                    if (translate.ContainsKey(dlc1name))
+                        translate[fname] = translate[dlc1name].Replace("dlc1", "dlc2");
+                    else
+                    {
+                        Console.WriteLine("Skipping {0}", file);
+                        continue;
+                    }
                 }
                 File.Move(file, file.Replace(fname, translate[fname]));
             }
@@ -189,7 +195,8 @@ namespace DarkSouls3.Preprocessor
 
         static void Main(string[] args)
         {
-            //Console.OutputEncoding = System.Text.Encoding.Unicode;
+            RenameFiles();
+            ExtractRawJson();
             ExtractJson();
             Console.WriteLine("done");
         }
